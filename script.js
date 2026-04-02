@@ -1,15 +1,15 @@
-//your JS code here. If required.
 const codes = document.querySelectorAll(".code");
 
-codes.forEach((input, index) => {
+// Focus first input on load
+codes[0].focus();
 
-    // Typing forward
-    input.addEventListener("input", (e) => {
+codes.forEach((code, index) => {
+    code.addEventListener("input", (e) => {
         const value = e.target.value;
 
-        // Allow only digits
+        // Allow only numbers
         if (!/^[0-9]$/.test(value)) {
-            input.value = "";
+            e.target.value = "";
             return;
         }
 
@@ -19,15 +19,16 @@ codes.forEach((input, index) => {
         }
     });
 
-    // Backspace behavior
-    input.addEventListener("keydown", (e) => {
+    code.addEventListener("keydown", (e) => {
         if (e.key === "Backspace") {
-            if (input.value === "" && index > 0) {
+
+            // If current is empty → go back
+            if (code.value === "" && index > 0) {
                 codes[index - 1].focus();
-            } else {
-                input.value = "";
             }
+
+            // Clear current value
+            code.value = "";
         }
     });
-
 });
